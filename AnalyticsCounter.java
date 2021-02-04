@@ -16,7 +16,7 @@ public class AnalyticsCounter {
 		List<String>symptoms= counter.readingFile("Project02Eclipse/symptoms.txt");
 		Collections.sort(symptoms);
 		System.out.println(symptoms.toString());
-		
+		Map<String, Integer> map = cumputingSymptoms(List<String> symptoms)
 		
 		IWriterMap writer = new WriteFromDataMap();
 		writer.ecrireResult(map);
@@ -30,10 +30,8 @@ public class AnalyticsCounter {
 	}
 	
 	
-	
-	
-	private Map<String, Integer> map = new HashMap<>();{
-	
+	private Map<String, Integer> cumputingSymptoms(List<String> symptoms) {
+		Map<String, Integer> map = new HashMap<>();
 		for (String symptom : symptoms) {
 
 			if (symptom != null) {
@@ -44,8 +42,10 @@ public class AnalyticsCounter {
 				map.put(symptom, map.get(symptom) + 1);
 			}
 		}
-
+		return map;	
 	}
+	
+	
 	
 	
 }
