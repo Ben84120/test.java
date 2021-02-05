@@ -1,46 +1,59 @@
 package com.hemebiotech.analytics;
 
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class AnalyticsCounter {
-public static void main(String args[]) throws Exception {
 
-        /**
-         * Using the ISymptomReader interface to read the symptoms.txt file and place its contents in an alphabetically arranged collection.
-         */
-        AnalyticsCounter counter=new AnalyticsCounter();
-        List<String>symptoms= counter.readingFile("Project02Eclipse/symptoms.txt");
-        Collections.sort(symptoms);
-        System.out.println(symptoms.toString());
-        Map<String, Integer> map = counter.cumputingSymptoms( symptoms);
+	public static void main(String args[]) throws Exception {
 
-        IWriterMap writer = new WriteFromDataMap();
-        writer.ecrireResult(map);
+		/**
+		 * @param Main function of the program
+		 */
+		AnalyticsCounter counter = new AnalyticsCounter();
+		List<String> symptoms = counter.readingFile("Project02Eclipse/symptoms.txt");
+		System.out.println(symptoms.toString());
+		Map<String, Integer> map = counter.cumputingSymptoms(symptoms);
+		IWriterMap writer = new WriteFromDataMap(); /* Use our program to write to a text file */
+		writer.ecrireResult(map);
 
-    }
+	}
 
-    private List<String> readingFile(String file) {
-        ISymptomReader reader = new ReadSymptomDataFromFile(file);
-        return reader.getSymptoms();
+	/**
+	 * 
+	 * @param Function allowing to browse the Map
+	 * @return Returns the symptoms
+	 */
+	public List<String> readingFile(String file) {
+		ISymptomReader reader = new ReadSymptomDataFromFile(file);
+		return reader.GetSymptoms();
 
-    }
+	}
 
+	/**
+	 * 
+	 * @param Function allowing to iterate each occurrence through a loop.
+	 * @detail Use TreeMap to sort our collection alphabetically.
+	 * @return Return the occurrences and their numbers
+	 */
+	public Map<String, Integer> cumputingSymptoms(List<String> symptoms) {
+		Map<String, Integer> map = new TreeMap<>();
+		for (String symptom : symptoms) {
+			if (symptom != null) {
 
-    private Map<String, Integer> cumputingSymptoms(List<String> symptoms) {
-        Map<String, Integer> map = new HashMap<>();
-        for (String symptom : symptoms) {
-            if (symptom != null) {
+				if (!map.containsKey(symptom)) {
+					map.put(symptom, 1);
+				} else {
+					map.put(symptom, map.get(symptom) + 1);
 
-                if (!map.containsKey(symptom)) {
-                    map.put(symptom, 1);
-                } else {
-                    map.put(symptom, map.get(symptom) + 1);
-                }
-            }
-        }
-        return map;
-    }
+				}
+
+			}
+		}
+
+		return map;
+
+	}
+
 }
