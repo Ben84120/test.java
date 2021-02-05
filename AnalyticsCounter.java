@@ -15,6 +15,8 @@ public class AnalyticsCounter {
 		List<String> symptoms = counter.readingFile("Project02Eclipse/symptoms.txt");
 		System.out.println(symptoms.toString());
 		Map<String, Integer> map = counter.cumputingSymptoms(symptoms);
+		
+		//TODO Appel de la methode saving
 		IWriterMap writer = new WriteFromDataMap(); /* Use our program to write to a text file */
 		writer.ecrireResult(map);
 
@@ -55,5 +57,12 @@ public class AnalyticsCounter {
 		return map;
 
 	}
+	
+	public void saving(Map<String, Integer> map) {
+		//TODO à trasferet le code d'ecriture du fichier
+
+	}
+	
+	
 
 }
